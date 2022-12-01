@@ -19,7 +19,9 @@ func Test_CalorieCounter(t *testing.T) {
 		want    int
 	}{
 		{name: "Passing Test", wantErr: false, args: args{calories: []int{7127, 2867}}, want: 9994},
-		{name: "Failing Test", wantErr: true, args: args{calories: []int{712742, 32323}}, want: 9994},
+		{name: "Small Numbers", wantErr: false, args: args{calories: []int{10, 10}}, want: 20},
+		{name: "Negative Numbers", wantErr: false, args: args{calories: []int{-10, 10}}, want: 0},
+		{name: "Negative Numbers 2", wantErr: false, args: args{calories: []int{-10, -10}}, want: -20},
 	}
 
 	for _, tt := range tests {
