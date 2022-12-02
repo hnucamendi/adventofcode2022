@@ -1,4 +1,4 @@
-package main
+package elfs
 
 import (
 	"fmt"
@@ -43,44 +43,41 @@ func Test_CalorieCounter(t *testing.T) {
 func Test_ElfParser(t *testing.T) {
 
 	type args struct {
-		in string
+		in []byte
+	}
+
+	type Elfs struct {
+		elf []int
 	}
 
 	tests := []struct {
 		name    string
 		wantErr bool
 		args    args
-		want    []int
+		want    []interface{}
 	}{
 		{
 			name:    "Working Case",
 			wantErr: false,
 			args: args{
-				in: `
+				in: []byte(`
 					123
 					456
-					`,
+
+					321
+					432
+					`),
 			},
-			want: []int{123, 456},
-		},
-		{
-			name:    "If Negative",
-			wantErr: false,
-			args: args{
-				in: `
-				-2132 
-				-11441
-					`,
+			want: []interface{}{
+				[]string{
+					"123",
+					"456",
+				},
+				[]string{
+					"321",
+					"432",
+				},
 			},
-			want: []int{-2132, -11441},
-		},
-		{
-			name:    "if single line",
-			wantErr: false,
-			args: args{
-				in: "12414 343241",
-			},
-			want: []int{12414, 343241},
 		},
 	}
 
@@ -96,44 +93,44 @@ func Test_ElfParser(t *testing.T) {
 	}
 }
 
-func TestMain(t *testing.T) {
+// func TestMain(t *testing.T) {
 
-	type args struct {
-		cal []int
-		in  string
-	}
+// 	type args struct {
+// 		cal []int
+// 		in  string
+// 	}
 
-	tests := []struct {
-		name    string
-		wantErr bool
-		args    args
-		want    int
-	}{
-		{
-			name:    "initial test",
-			wantErr: false,
-			args: args{
-				in:  "30123 32932",
-				cal: []int{30123, 32932},
-			},
-			want: 63055,
-		},
-	}
+// 	tests := []struct {
+// 		name    string
+// 		wantErr bool
+// 		args    args
+// 		want    int
+// 	}{
+// 		{
+// 			name:    "initial test",
+// 			wantErr: false,
+// 			args: args{
+// 				in:  "30123 32932",
+// 				cal: []int{30123, 32932},
+// 			},
+// 			want: 63055,
+// 		},
+// 	}
 
-	for _, tt := range tests {
-		gotString, err := ElfParser(tt.args.in)
-		if (err != nil) != tt.wantErr {
-			t.Fatalf("error %v want error %v", err, tt.wantErr)
-		}
+// 	for _, tt := range tests {
+// 		gotString, err := ElfParser(tt.args.in)
+// 		if (err != nil) != tt.wantErr {
+// 			t.Fatalf("error %v want error %v", err, tt.wantErr)
+// 		}
 
-		got, err := CalorieCounter(gotString)
-		if (err != nil) != tt.wantErr {
-			t.Fatalf("error %v want error %v", err, tt.wantErr)
-		}
+// 		got, err := CalorieCounter(gotString)
+// 		if (err != nil) != tt.wantErr {
+// 			t.Fatalf("error %v want error %v", err, tt.wantErr)
+// 		}
 
-		if !reflect.DeepEqual(got, tt.want) {
-			t.Fatalf("got %v want %v", got, tt.want)
-		}
+// 		if !reflect.DeepEqual(got, tt.want) {
+// 			t.Fatalf("got %v want %v", got, tt.want)
+// 		}
 
-	}
-}
+// 	}
+// }
