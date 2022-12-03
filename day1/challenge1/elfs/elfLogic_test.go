@@ -11,11 +11,16 @@ func Test_ElfParser(t *testing.T) {
 		in []byte
 	}
 
+	type wants struct {
+		is [][]int
+		i  int
+	}
+
 	tests := []struct {
 		name    string
 		wantErr bool
 		args    args
-		want    [][]int
+		want    wants
 	}{
 		{
 			name:    "Working Case",
@@ -27,21 +32,18 @@ func Test_ElfParser(t *testing.T) {
 
 					321
 					432
+
+					857
+					134
 					`),
 			},
 
-			want: [][]int{
-				{579}, {753},
+			want: wants{
+				is: [][]int{
+					{991}, {753}, {579},
+				},
+				i: 2323,
 			},
-
-			// want: []interface{}{
-			// 	[]int{
-			// 		579,
-			// 	},
-			// 	[]int{
-			// 		753,
-			// 	},
-			// },
 		},
 	}
 
@@ -51,8 +53,18 @@ func Test_ElfParser(t *testing.T) {
 			t.Fatalf("error %v expected want error %v", err, tt.wantErr)
 		}
 
-		if !reflect.DeepEqual(got, tt.want) {
+		if !reflect.DeepEqual(got, tt.want.is) {
 			t.Fatalf("got %v wanted %v", got, tt.want)
 		}
+
+		g, err := Topthree(got)
+		if (err != nil) != tt.wantErr {
+			t.Fatalf("error %v expected want error %v", err, tt.wantErr)
+		}
+
+		if !reflect.DeepEqual(g, tt.want.i) {
+			t.Fatalf("got %v wanted %v", got, tt.want)
+		}
+
 	}
 }

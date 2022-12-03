@@ -16,8 +16,6 @@ func main() {
 	highestCalories, err := elfs.ElfParser(f)
 	elfs.CheckErr(err)
 
-	elfs.SortArr(highestCalories)
-
 	tp, err := elfs.Topthree(highestCalories)
 	elfs.CheckErr(err)
 

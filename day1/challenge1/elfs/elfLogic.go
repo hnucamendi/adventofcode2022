@@ -17,18 +17,14 @@ func Topthree(arr [][]int) (int, error) {
 	return sum, nil
 }
 
-func SortArr(arr [][]int) ([][]int, error) {
-
+func SortArr(arr [][]int) {
 	sort.Slice(arr, func(i, j int) bool {
 		return arr[i][0] > arr[j][0]
 	})
-
-	return nil, nil
 }
 
 // converts a string of values into multidimensional array of elfs
 func ElfParser(bte []byte) ([][]int, error) {
-
 	var l [][]int
 	var count int = 0
 
@@ -54,6 +50,9 @@ func ElfParser(bte []byte) ([][]int, error) {
 			count = 0
 		}
 	}
+
+	SortArr(l)
+
 	return l, nil
 }
 
