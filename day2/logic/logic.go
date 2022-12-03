@@ -61,3 +61,49 @@ func Play(p []byte) (int, int, error) {
 
 	return comp, usr, nil
 }
+
+func PlayR(p []byte) (int, int, error) {
+	var comp int
+	var usr int
+
+	f := strings.Split(string(p), "\n")
+
+	for i := 0; i < len(f); i++ {
+		f[i] = strings.TrimSpace(f[i])
+
+		switch f[i] {
+		case "A X":
+			comp += rock + win
+			usr += scissors + lose
+		case "A Y":
+			comp += rock + draw
+			usr += rock + draw
+		case "A Z":
+			comp += rock + lose
+			usr += paper + win
+		case "B X":
+			comp += paper + win
+			usr += rock + lose
+		case "B Y":
+			comp += paper + draw
+			usr += paper + draw
+		case "B Z":
+			comp += paper + lose
+			usr += scissors + win
+		case "C X":
+			comp += scissors + win
+			usr += paper + lose
+		case "C Y":
+			comp += scissors + draw
+			usr += scissors + draw
+		case "C Z":
+			comp += scissors + lose
+			usr += rock + win
+		}
+	}
+
+	fmt.Println("COMP", comp)
+	fmt.Println("USR", usr)
+
+	return comp, usr, nil
+}
