@@ -1,78 +1,66 @@
 package elfs
 
 import (
-	"encoding/json"
 	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-type Elfs struct {
-	Elf []string
-}
+func Topthree(arr [][]int) (int, error) {
+	var sum int = 0
 
-// Sums up the values in an array
-// In this instance used to determine the total calories each elf has
-func CalorieCounter(calories []int) (int, error) {
-
-	// fmt.Println("Before", calories)
-
-	sort.SliceStable(calories, func(i, j int) bool {
-		return true
-	})
-
-	// fmt.Println("After", calories)
-
-	// arr.sort(function (a, b) {
-	// 	return a - b;
-	// });
-
-	sum := 0
-	for _, c := range calories {
-		sum += c
+	for i := 0; i < 3; i++ {
+		sum += arr[i][0]
 	}
 
 	return sum, nil
 }
 
-// converts a string of values into multidimensional array of elfs
-func ElfParser(bte []byte) ([]interface{}, error) {
-	var l []interface{}
+func SortArr(arr [][]int) ([][]int, error) {
 
-	o := strings.Split(string(bte), "\n\n")
-
-	fmt.Println("spaced", o[1])
-	fmt.Println("spaced", []byte(o[1]))
-
-	for i := 0; i < len(o); i++ {
-		n := strings.Split(o[i], "\n")
-		for j := 0; j < len(n); j++ {
-			ls := strings.ReplaceAll(n[j], "\t", "")
-			if ls == "" {
-				continue
-			}
-			s, err := strconv.Atoi(ls)
-			if err != nil {
-				fmt.Println(err)
-			}
-			l = append(l, s)
-		}
-		fmt.Println(o[i])
-		fmt.Println([]byte(o[i]))
-	}
-
-	fmt.Println(l)
+	sort.Slice(arr, func(i, j int) bool {
+		return arr[i][0] > arr[j][0]
+	})
 
 	return nil, nil
-	for i := 0; i < len(o); i++ {
-		s := strings.Split(o[i], "\n\t\t\t\t\t")
-		l = append(l, s)
+}
+
+// converts a string of values into multidimensional array of elfs
+func ElfParser(bte []byte) ([][]int, error) {
+
+	var l [][]int
+	var count int = 0
+
+	o := strings.ReplaceAll(string(bte), "\t", "")
+	o = strings.ReplaceAll(o, "\n", " ")
+	o = strings.TrimSpace(o)
+	f := strings.Split(o, " ")
+
+	for i := 0; i < len(f); i += 1 {
+		if f[i] == "" {
+			l = append(l, []int{count})
+			count = 0
+			i += 1
+		}
+
+		n, err := strconv.Atoi(f[i])
+		CheckErr(err)
+
+		count += n
+
+		if i == len(f)-1 {
+			l = append(l, []int{count})
+			count = 0
+		}
 	}
-	fmt.Println("HERE", l)
-
-	f, _ := json.Marshal(l)
-	fmt.Println("here", string(f))
-
 	return l, nil
+}
+
+func CheckErr(err error) ([][]int, error) {
+	if err != nil {
+		fmt.Println("err:", err)
+		return nil, err
+	}
+	return nil, nil
 }
