@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DOI/adventofcode2022/day1/challenge1/challengeOne/elfs"
+	"github.com/DOI/adventofcode2022/day1/elfs"
 )
 
 func main() {
