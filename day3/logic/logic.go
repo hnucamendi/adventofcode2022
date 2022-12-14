@@ -3,6 +3,7 @@ package logic
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 var l = []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
@@ -35,16 +36,23 @@ func GetValue(str string) int {
 	return 0
 }
 
+func removeDuplicate(dup []string) []string {
+	newMap := map[string]bool{}
+	list := []string{}
+
+	for i := range dup {
+		if _, value := newMap[dup[i]]; !value {
+			newMap[dup[i]] = true
+			list = append(list, dup[i])
+		}
+	}
+	return list
+}
+
 func AssignNum(str [][]string) (map[string]int, error) {
 	ln := map[string]int{}
-	t := 0
 	ignore := []string{}
-	list := []string{}
-	newMap := map[string]bool{}
-
-	// for i := range l {
-	// 	ln[l[i]] = 0
-	// }
+	t := 0
 
 	fmt.Println("+++++++++++++")
 
@@ -52,30 +60,22 @@ func AssignNum(str [][]string) (map[string]int, error) {
 		for j := 0; j < len(str[i]); j++ {
 			for k := 0; k < len(str[i][j]); k++ {
 				ln[string(str[i][j][k])] += GetValue(string(str[i][j][k]))
+				fmt.Printf("ln:%v str:%v value:%v\n", ln[string(str[i][j][k])], string(str[i][j][k]), GetValue(string(str[i][j][k])))
+				time.Sleep(time.Millisecond * 350)
 
 				if str[0][j][k] == str[1][j][k] {
 					// t += GetValue(string(str[0][j][k]))
 					ignore = append(ignore, string(str[0][j][k]))
 				}
-
-				// fmt.Println(i, j, k, str[i][j][k], string(str[i][j][k]))
-
-				// fmt.Printf("\nan: %v\n", ln)
-
 			}
 		}
 	}
 
-	for i := range ignore {
-		if _, value := newMap[ignore[i]]; !value {
-			newMap[ignore[i]] = true
-			list = append(list, ignore[i])
-		}
-	}
-
+	list := removeDuplicate(ignore)
 	for _, v := range list {
-		fmt.Println("V", v)
+		// fmt.Printf("%s %v + %v = %v\n", v, t, GetValue(v), t+GetValue(v))
 		t += GetValue(v)
+		// time.Sleep(time.Millisecond * 350)
 	}
 
 	fmt.Println("TOTAL ", t)
