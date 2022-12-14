@@ -70,6 +70,29 @@ func Test_AssignNum(t *testing.T) {
 	}
 }
 
+func Test_RemoveDuplicate(t *testing.T) {
+	tests := []struct {
+		name string
+		in   []string
+		want []string
+	}{
+		{
+			name: "test",
+			in:   []string{"a", "b", "c", "c", "a", "d"},
+			want: []string{"a", "b", "c", "d"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := removeDuplicate(tt.in)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Fatalf("got %v expected %v\n", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_GetValue(t *testing.T) {
 	tests := []struct {
 		name    string
