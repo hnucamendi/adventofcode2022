@@ -84,3 +84,41 @@ func Test_AssignNum(t *testing.T) {
 		})
 	}
 }
+
+func Test_GetValue9(t *testing.T) {
+	tests := []struct {
+		name    string
+		want    int
+		in      string
+		wantErr bool
+	}{
+		{
+			name:    "test",
+			want:    26,
+			in:      "z",
+			wantErr: false,
+		},
+		{
+			name:    "test",
+			want:    52,
+			in:      "Z",
+			wantErr: false,
+		},
+		{
+			name:    "test",
+			want:    1,
+			in:      "a",
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := GetValue(tt.in)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Fatalf("got:%v\nexpected:%v\n", got, tt.want)
+			}
+		})
+	}
+
+}
