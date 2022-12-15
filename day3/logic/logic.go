@@ -4,8 +4,6 @@ import (
 	"strings"
 )
 
-var l = []string{"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
-
 func Split(s []byte) ([][]string, error) {
 	var (
 		bag1 []string
@@ -38,6 +36,7 @@ func AssignNum(str [][]string) (int, error) {
 }
 
 func GetValue(str string) int {
+	var l = []string{"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
 	for i := range l {
 		return strings.Index(l[i], str) + 1
 	}
