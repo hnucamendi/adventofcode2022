@@ -39,19 +39,19 @@ func Test_AssignNum(t *testing.T) {
 	tests := []struct {
 		name    string
 		param   [][]string
-		want    map[string]int
+		want    int
 		wantErr bool
 	}{
 		{
 			name:    "First Test",
 			param:   [][]string{{"vJrwpWtwJgWr", "jqHRNqRjqzjGDLGL", "PmmdzqPrV"}, {"hcsFMMfFFhFp", "rsFMfFZSrLrFZsSL", "vPwwTWBwg"}},
-			want:    map[string]int{"B": 28, "D": 30, "F": 224, "G": 66, "H": 34, "J": 72, "L": 152, "M": 117, "N": 40, "P": 126, "R": 88, "S": 90, "T": 46, "V": 48, "W": 147, "Z": 104, "c": 3, "d": 4, "f": 12, "g": 14, "h": 16, "j": 30, "m": 26, "p": 32, "q": 68, "r": 108, "s": 57, "t": 20, "v": 44, "w": 115, "z": 52},
+			want:    96,
 			wantErr: false,
 		},
 		{
 			name:    "Small Test",
 			param:   [][]string{{"abce"}, {"abcd"}},
-			want:    map[string]int{"a": 2, "b": 2, "c": 2, "d": 1},
+			want:    1,
 			wantErr: false,
 		},
 	}
@@ -65,29 +65,6 @@ func Test_AssignNum(t *testing.T) {
 
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Fatalf("got: %v\n want: %v\n", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_RemoveDuplicate(t *testing.T) {
-	tests := []struct {
-		name string
-		in   []string
-		want []string
-	}{
-		{
-			name: "test",
-			in:   []string{"a", "b", "c", "c", "a", "d"},
-			want: []string{"a", "b", "c", "d"},
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := removeDuplicate(tt.in)
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Fatalf("got %v expected %v\n", got, tt.want)
 			}
 		})
 	}

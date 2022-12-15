@@ -19,25 +19,10 @@ func main() {
 		return
 	}
 
-	// fmt.Println("REAL", s)
-
 	a, err := logic.AssignNum(s)
 	if err != nil {
 		return
 	}
 
 	fmt.Println(a)
-
-	// b, _ := logic.Split([]byte(
-	// 	`vJrwpWtwJgWrhcsFMMfFFhFp
-	// jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-	// PmmdzqPrVvPwwTWBwg
-	// wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-	// ttgJtRGJQctTZtZT
-	// CrZsJsPPZsGzwwsLwLmpwMDw`))
-
-	// fmt.Println("FAKE", b)
-
-	// logic.CommonType(b)
-
 }

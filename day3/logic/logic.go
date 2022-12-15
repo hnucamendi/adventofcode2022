@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-var l = []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+var l = []string{"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"}
 
 func Split(s []byte) ([][]string, error) {
 	var (
@@ -24,7 +24,7 @@ func Split(s []byte) ([][]string, error) {
 }
 
 func AssignNum(str [][]string) (int, error) {
-	t := 0
+	var t int = 0
 
 	for i := 0; i < len(str[0]); i++ {
 		for j := range str[0][i] {
@@ -39,9 +39,7 @@ func AssignNum(str [][]string) (int, error) {
 
 func GetValue(str string) int {
 	for i := range l {
-		if l[i] == str {
-			return i + 1
-		}
+		return strings.Index(l[i], str) + 1
 	}
 	return 0
 }
