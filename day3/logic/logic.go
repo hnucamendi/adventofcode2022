@@ -64,15 +64,11 @@ func Split3Ways(s []byte) ([][]string, error) {
 
 func AssignNum3Ways(bag [][]string) (int, error) {
 	var t int
-	var count int
 
 	for _, b := range bag {
 		for i := 0; i < len(b); i += 3 {
 			for _, bii := range b[i] {
 				if strings.Contains(b[0], string(bii)) && strings.Contains(b[1], string(bii)) && strings.Contains(b[2], string(bii)) {
-					count++
-					// fmt.Println("C", count, string(bii))
-					// fmt.Printf("\nSAME:%v\nt:%v + %v = %v\n", string(bii), t, GetValue(string(bii)), t+GetValue(string(bii)))
 					t += GetValue(string(bii))
 					break
 				}
