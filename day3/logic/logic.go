@@ -42,3 +42,42 @@ func GetValue(str string) int {
 	}
 	return 0
 }
+
+func Split3Ways(s []byte) ([][]string, error) {
+	var (
+		oLength int
+		bag     [][]string
+	)
+
+	nt := strings.ReplaceAll(string(s), "\t", "")
+	f := strings.Split(nt, "\n")
+
+	oLength = len(f) / 3
+
+	for i := 0; i < oLength; i++ {
+		bag = append(bag, []string{f[0], f[1], f[2]})
+		f = f[3:]
+	}
+
+	return bag, nil
+}
+
+func AssignNum3Ways(bag [][]string) (int, error) {
+	var t int
+	var count int
+
+	for _, b := range bag {
+		for i := 0; i < len(b); i += 3 {
+			for _, bii := range b[i] {
+				if strings.Contains(b[0], string(bii)) && strings.Contains(b[1], string(bii)) && strings.Contains(b[2], string(bii)) {
+					count++
+					// fmt.Println("C", count, string(bii))
+					// fmt.Printf("\nSAME:%v\nt:%v + %v = %v\n", string(bii), t, GetValue(string(bii)), t+GetValue(string(bii)))
+					t += GetValue(string(bii))
+					break
+				}
+			}
+		}
+	}
+	return t, nil
+}

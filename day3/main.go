@@ -14,6 +14,7 @@ func main() {
 		return
 	}
 
+	// Part 1
 	s, err := logic.Split(f)
 	if err != nil {
 		return
@@ -23,6 +24,19 @@ func main() {
 	if err != nil {
 		return
 	}
+	fmt.Println("Part 1", a)
 
-	fmt.Println(a)
+	// Part 2
+	se, err := logic.Split3Ways(f)
+	if err != nil {
+		return
+	}
+
+	ae, err := logic.AssignNum3Ways(se)
+	if err != nil {
+		return
+	}
+
+	fmt.Println("Part 2", ae)
+
 }
